@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculator 🐜</title>
+<title>Dark Calculator 😈</title>
 
 <style>
 body {
@@ -54,7 +54,7 @@ button:active {
   transform: scale(0.9);
 }
 
-/* FULLSCREEN VIDEO */
+/* VIDEO SCREEN */
 #videoScreen {
   position: fixed;
   top: 0;
@@ -118,7 +118,12 @@ button:active {
 <!-- VIDEO SCREEN -->
 <div id="videoScreen">
   <button id="closeVideo" onclick="closeVideo()">X</button>
-  <video id="myVideo" src="carti.mp4"></video>
+
+  <!-- FIXED VIDEO -->
+  <video id="myVideo" muted playsinline>
+    <source src="carti.mp4" type="video/mp4">
+  </video>
+
 </div>
 
 <script>
@@ -152,7 +157,15 @@ function openVideo() {
   let video = document.getElementById("myVideo");
 
   screen.style.display = "flex";
-  video.play();
+
+  // Mobile autoplay fix
+  video.muted = true;
+  video.play().then(() => {
+    // unmute after start
+    video.muted = false;
+  }).catch(() => {
+    console.log("Autoplay blocked");
+  });
 }
 
 function closeVideo() {
