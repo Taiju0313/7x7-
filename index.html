@@ -13,6 +13,7 @@ body {
   align-items: center;
   height: 100vh;
   font-family: Arial;
+  color: white;
 }
 
 /* Calculator */
@@ -20,6 +21,13 @@ body {
   background: #111;
   padding: 20px;
   border-radius: 20px;
+  text-align: center;
+}
+
+/* TITLE BACK 🔥 */
+h2 {
+  margin-bottom: 10px;
+  color: #00ffcc;
 }
 
 #display {
@@ -54,35 +62,34 @@ button:active {
   transform: scale(0.9);
 }
 
-/* VIDEO SCREEN */
-#videoScreen {
+/* 🔥 SMALL POPUP VIDEO */
+#videoPopup {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  display: none;
-  justify-content: center;
-  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #111;
+  padding: 10px;
+  border-radius: 15px;
   z-index: 999;
+  transition: 0.3s;
 }
 
-#videoScreen video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+#videoPopup.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#videoPopup video {
+  width: 250px; /* small popup */
+  border-radius: 10px;
 }
 
 #closeVideo {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  margin-top: 5px;
+  padding: 5px 10px;
   background: red;
-  color: white;
   border: none;
-  padding: 10px;
-  font-size: 16px;
+  color: white;
 }
 </style>
 </head>
@@ -90,6 +97,8 @@ button:active {
 <body>
 
 <div class="calculator">
+  <h2>Calculator 😈</h2>
+
   <input type="text" id="display" disabled>
 
   <div class="buttons">
@@ -115,15 +124,13 @@ button:active {
   </div>
 </div>
 
-<!-- VIDEO SCREEN -->
-<div id="videoScreen">
-  <button id="closeVideo" onclick="closeVideo()">X</button>
-
-  <!-- FIXED VIDEO -->
+<!-- 🔥 POPUP VIDEO -->
+<div id="videoPopup">
   <video id="myVideo" muted playsinline>
     <source src="carti.mp4" type="video/mp4">
   </video>
-
+  <br>
+  <button id="closeVideo" onclick="closeVideo()">Close</button>
 </div>
 
 <script>
@@ -153,28 +160,21 @@ function calculate() {
 }
 
 function openVideo() {
-  let screen = document.getElementById("videoScreen");
+  let popup = document.getElementById("videoPopup");
   let video = document.getElementById("myVideo");
 
-  screen.style.display = "flex";
+  popup.classList.add("show");
 
-  // Mobile autoplay fix
-  video.muted = true;
-  video.play().then(() => {
-    // unmute after start
-    video.muted = false;
-  }).catch(() => {
-    console.log("Autoplay blocked");
-  });
+  video.currentTime = 0;
+  video.play();
 }
 
 function closeVideo() {
-  let screen = document.getElementById("videoScreen");
+  let popup = document.getElementById("videoPopup");
   let video = document.getElementById("myVideo");
 
   video.pause();
-  video.currentTime = 0;
-  screen.style.display = "none";
+  popup.classList.remove("show");
 }
 </script>
 
