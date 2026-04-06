@@ -3,81 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Funny Calculator</title>
+<title>Dark Calculator 😈</title>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #111;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+body {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial;
+}
 
-  .box {
-    background: #222;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    width: 300px;
-  }
+.calculator {
+  background: #111;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
 
-  input {
-    width: 80px;
-    padding: 10px;
-    margin: 10px;
-    font-size: 18px;
-    text-align: center;
-  }
+#display {
+  width: 100%;
+  height: 60px;
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: right;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #000;
+  color: #0f0;
+}
 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 70px);
+  gap: 10px;
+}
 
-  #result {
-    margin-top: 20px;
-    font-size: 20px;
-    color: #00ffcc;
-  }
+button {
+  height: 60px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: white;
+  transition: 0.2s;
+}
+
+button:active {
+  transform: scale(0.9);
+  background: #444;
+}
+
+.operator {
+  background: #ff9500;
+}
+
+.equal {
+  background: #00cc66;
+}
+
+.clear {
+  background: #ff3b30;
+}
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>Calculator 😈</h2>
+<div class="calculator">
+  <input type="text" id="display" disabled>
 
-  <input type="number" id="num1" placeholder="First">
-  <br>
-  <span>×</span>
-  <br>
-  <input type="number" id="num2" placeholder="Second">
+  <div class="buttons">
+    <button onclick="clearDisplay()" class="clear">C</button>
+    <button onclick="append('*')" class="operator">×</button>
+    <button onclick="append('/')">÷</button>
+    <button onclick="append('-')" class="operator">-</button>
 
-  <br>
-  <button onclick="calculate()">Calculate</button>
+    <button onclick="append('7')">7</button>
+    <button onclick="append('8')">8</button>
+    <button onclick="append('9')">9</button>
+    <button onclick="append('+')" class="operator">+</button>
 
-  <div id="result"></div>
+    <button onclick="append('4')">4</button>
+    <button onclick="append('5')">5</button>
+    <button onclick="append('6')">6</button>
+    <button onclick="calculate()" class="equal">=</button>
+
+    <button onclick="append('1')">1</button>
+    <button onclick="append('2')">2</button>
+    <button onclick="append('3')">3</button>
+    <button onclick="append('0')">0</button>
+  </div>
 </div>
 
 <script>
-function calculate() {
-  let a = document.getElementById("num1").value;
-  let b = document.getElementById("num2").value;
-  let result = document.getElementById("result");
+let display = document.getElementById("display");
 
-  if (a == 7 && b == 7) {
-    result.innerText = "49";
+function append(value) {
+  display.value += value;
+}
+
+function clearDisplay() {
+  display.value = "";
+}
+
+function calculate() {
+  let exp = display.value;
+
+  if (exp === "7*7") {
+    display.value = "49";
   } 
-  else if (a == 9 && b == 9) {
-    result.innerText = "81";
+  else if (exp === "9*9") {
+    display.value = "81";
   } 
   else {
-    result.innerText = "Nih help a ant to goon 🐜";
+    display.value = "Nih help a ant to goon 🐜";
   }
 }
 </script>
